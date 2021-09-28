@@ -1,0 +1,8 @@
+{
+    "name": "CentOS",
+    "build": {
+        "dockerfile": "Dockerfile",
+    },
+    "settings": {},
+    "extensions": [],
+}
