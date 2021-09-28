@@ -2,5 +2,5 @@
 # Any commands placed here will be automatically run whenever
 # a new VSCode integrated terminal is started.
 
-# Initialize the python3 virtual environment
+# Automatically initialize the python3 virtual environment.
 source ./bin/activate
