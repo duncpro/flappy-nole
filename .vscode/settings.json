@@ -1,0 +1,14 @@
+{
+    // .bashrc is not respected by VSCode's intergrated terminal
+    // To acheive behavior similar to .bashrc --init-file can be used
+    // to explicitly run a shell script when a new integrated terminal instance
+    // is started.
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "/usr/bin/bash",
+            "icon": "terminal-bash",
+            "args": ["--init-file", "integrated-terminal-init.sh"]
+        },
+    },
+    "terminal.integrated.defaultProfile.linux": "bash"
+}
