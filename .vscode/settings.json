@@ -3,12 +3,12 @@
     // To acheive behavior similar to .bashrc --init-file can be used
     // to explicitly run a shell script when a new integrated terminal instance
     // is started.
-    "terminal.integrated.profiles.linux": {
+    "terminal.integrated.profiles.osx": {
         "bash": {
-            "path": "/usr/bin/bash",
-            "icon": "terminal-bash",
+            "path": "/bin/bash",
+            "icon": "terminal",
             "args": ["--init-file", "integrated-terminal-init.sh"]
         },
     },
-    "terminal.integrated.defaultProfile.linux": "bash"
+    "terminal.integrated.defaultProfile.osx": "bash"
 }
