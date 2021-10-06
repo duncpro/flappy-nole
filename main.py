@@ -2,6 +2,8 @@ import sys, pygame
 pygame.init()
 
 size = width, height = 320, 240
+clock=pygame.time.Clock() #g
+
 speed = [2, 2]
 black = 0, 0, 0
 
@@ -35,3 +37,4 @@ while 1:
 #     pygame.display.flip()
 
     pygame.display.update()
+    clock.tick(120) #limits to 120
