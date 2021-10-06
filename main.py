@@ -16,7 +16,7 @@ screen = pygame.display.set_mode(size)
 tempBackgrd= pygame.image.load("WestcottIMG.xcf")
 
 ball = pygame.image.load("logocropped2.png") #ball=logo 300by306 pixels
-ballrect = ball.get_rect(center = (160, 120))   # places ball in middle of screen...based on current size (320, 240)
+ballrect = ball.get_rect(center = (288, 512))   # places ball in middle of screen...based on current size (576, 1024)
 
 # ground = pygame.
 
