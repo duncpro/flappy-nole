@@ -1,7 +1,7 @@
 import sys, pygame
 pygame.init()
 
-size = width, height = 320, 240
+size = width, height = 576, 1024
 clock=pygame.time.Clock() #g
 
 speed = [2, 2]
@@ -12,7 +12,10 @@ ballposition = 0
 
 screen = pygame.display.set_mode(size)
 
-ball = pygame.image.load("intro_ball.gif")
+#ball = pygame.image.load("intro_ball.gif")
+tempBackgrd= pygame.image.load("WestcottIMG.xcf")
+
+ball = pygame.image.load("logocropped2.png") #ball=logo 300by306 pixels
 ballrect = ball.get_rect(center = (160, 120))   # places ball in middle of screen...based on current size (320, 240)
 
 # ground = pygame.
@@ -30,7 +33,8 @@ while 1:
 #     if ballrect.top < 0 or ballrect.bottom > height:
 #         speed[1] = -speed[1]
 
-    screen.fill(black)
+    #screen.fill(black)
+    screen.blit(tempBackgrd, (0, 0)) #set temp background
     ballposition += gravity
     ballrect.centery += ballposition    # moves ball downward
     screen.blit(ball, ballrect)
