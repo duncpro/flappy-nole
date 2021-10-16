@@ -1,4 +1,4 @@
-import sys, pygame
+import pygame
 from draw import draw
 
 from pygame_event_handler import handle_pygame_event
