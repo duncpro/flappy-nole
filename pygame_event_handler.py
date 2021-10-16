@@ -13,4 +13,4 @@ def handle_pygame_event(event, game_state: FlappyNoleGameState):
 # Responsible for converting keyboard input to changes in game state.
 def handle_keyboard_event(event, game_state: FlappyNoleGameState):
     if event.key == K_SPACE: 
-        game_state.character_downward_speed = -10
+        game_state.character_jump()
