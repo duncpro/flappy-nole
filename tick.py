@@ -11,5 +11,5 @@ def tick(game_state: FlappyNoleGameState):
     # This will cause the character to begin moving upwards until is overtaken by gravity oncemore.
     game_state.character_downward_speed += gravity
 
-    # Shift the character's current postion by the characters current speed.
+    # Shift the character's current postion by the character's current speed.
     game_state.character_vpos += game_state.character_downward_speed
