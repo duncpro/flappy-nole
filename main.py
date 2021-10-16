@@ -1,43 +1,20 @@
 import sys, pygame
+from draw import draw
+
+from pygame_event_handler import handle_pygame_event
+from state import FlappyNoleGameState
+from tick import tick
+
+game_state = FlappyNoleGameState()
 
 pygame.init()
 
-# Screen Dimensions
-screen_width = 576
-screen_height = 1024
-screen_size = (screen_width, screen_height)
+clock = pygame.time.Clock() 
+screen = pygame.display.set_mode((game_state.screen_width, game_state.screen_height))
 
-speed = [2, 2]
-black = 0, 0, 0
-
-clock=pygame.time.Clock() #g
-
-gravity = .20
-ballposition = 0
-
-screen = pygame.display.set_mode(screen_size)
-
-#ball = pygame.image.load("intro_ball.gif")
-tempBackgrd= pygame.image.load("WestcottIMG.xcf")
-
-ball = pygame.image.load("logocropped2.png") #ball=logo 300by306 pixels
-ballrect = ball.get_rect(center = (screen_width / 2, screen_height / 2))   # places ball in middle of screen...based on current size (576, 1024)
-
-# ground = pygame.
-
-while 1:
+while game_state.is_game_running:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE: # when space bar is pressed down
-                ballposition = -10
-
-    #screen.fill(black)
-    screen.blit(tempBackgrd, (0, 0)) #set temp background
-    ballposition += gravity
-    ballrect.centery += ballposition    # moves ball downward
-    screen.blit(ball, ballrect)
-#     pygame.display.flip()
-
-    pygame.display.update()
-    clock.tick(120) #limits to 120
+        handle_pygame_event(event, game_state)
+    tick(game_state)    
+    draw(screen, game_state)    
+    clock.tick(120)
