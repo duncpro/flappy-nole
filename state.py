@@ -1,11 +1,18 @@
 # Represents the state of the game during a single tick.
 # For every tick that passes the state object is progressed by tick(game_state) in tick.py.
+from constants import SIDESCROLL_SPEED
+
 class FlappyNoleGameState:
     def __init__(self):
         self.screen_width = 576
         self.screen_height = 780
         self.is_app_running = True
-        self.new_game()
+        
+        # The number of elapsed ticks since the game was started.
+        # While the player is on the main menu, before the game has actually started
+        # this field will have a value of -1.
+        self.game_tick = -1
+        self.new_game()            
 
     def character_jump(self):
         self.character_downward_speed = -10      
@@ -14,6 +21,8 @@ class FlappyNoleGameState:
         # Speed at which the character is currently moving downwards, measured in pixels per tick.
         self.character_downward_speed = 0
         self.character_vpos = self.screen_height / 2
+        self.game_tick = 0
+        self.pipes = []
 
     @property
     def is_game_over(self):
@@ -22,4 +31,9 @@ class FlappyNoleGameState:
 
     @property
     def screen_size(self):
-        return (self.screen_width, self.screen_height)
+        return (self.screen_width, self.screen_height) 
+
+    # The number of ticks for which a unique segment of the world is visible.
+    @property
+    def segment_visibility_window(self):
+        return self.screen_width * SIDESCROLL_SPEED  
