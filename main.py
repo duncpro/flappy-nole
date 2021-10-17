@@ -1,6 +1,5 @@
 import pygame
 from draw import draw
-
 from pygame_event_handler import handle_pygame_event
 from state import FlappyNoleGameState
 from tick import tick
