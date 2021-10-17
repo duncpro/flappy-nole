@@ -1,5 +1,4 @@
-from constants import CHARACTER_HITBOX_HEIGHT, CHARACTER_HITBOX_WIDTH, SIDESCROLL_SPEED
-from pygame import Rect
+from constants import SIDESCROLL_SPEED
 
 # Represents the state of the game during a single tick.
 # For every tick that passes the state object is progressed by tick(game_state) in tick.py.
@@ -15,21 +14,12 @@ class FlappyNoleGameState:
         self.game_tick = -1
         self.new_game()            
 
-    def character_jump(self):
-        self.character_downward_speed = -9 
-
     def new_game(self):
         # Speed at which the character is currently moving downwards, measured in pixels per tick.
         self.character_downward_speed = 0
         self.character_vpos = self.screen_height / 2
         self.game_tick = 0
         self.pipes = []
-
-    # TODO: Use a circular hitbox
-    @property
-    def character_hitbox(self):
-        rel_left = 1/2 * (self.screen_width - CHARACTER_HITBOX_WIDTH)
-        return Rect((rel_left, self.character_vpos), (CHARACTER_HITBOX_WIDTH, CHARACTER_HITBOX_HEIGHT))    
 
     @property
     def is_colliding(self):
@@ -53,7 +43,3 @@ class FlappyNoleGameState:
     @property
     def segment_visibility_window(self):
         return self.screen_width * SIDESCROLL_SPEED
-
-    @property
-    def character_relative_position(self):
-        return ((self.screen_width - CHARACTER_HITBOX_WIDTH) / 2, self.character_vpos)

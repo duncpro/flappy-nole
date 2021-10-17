@@ -1,8 +1,9 @@
-from constants import CHARACTER_HITBOX_HEIGHT, CHARACTER_HITBOX_WIDTH, FSU_BLACK, FSU_GOLD, SIDESCROLL_SPEED
+from character import character_hitbox, character_relative_position
+from constants import BLACK, FSU_BLACK, SIDESCROLL_SPEED
 from state import FlappyNoleGameState
 from math import ceil
 from random import randint
-from pygame import Rect, mask
+import pygame
 
 # The width of the pipes in pixels
 PIPE_WIDTH: int = 100
@@ -41,23 +42,33 @@ class Pipe():
         else:
             return PIPE_WIDTH 
 
-    def hitbox_top(self, tick: int):
-        return Rect((self.visible_left_bound(tick), 0), (self.visible_width(tick), self.gap_start_pos))
+    def hitbox(self, screen_height):
+        surface = pygame.Surface((PIPE_WIDTH, screen_height))
+        # Arbitrary non-transparent color to represent pixels which count as collision points.
+        # Only used to compute the mask, not actual styling.
+        surface.fill(BLACK, ((0, 0), (PIPE_WIDTH, self.gap_start_pos)))
+        surface.fill(BLACK, ((0, self.gap_start_pos + PIPE_GAP_HEIGHT), (PIPE_WIDTH, screen_height)))
+        return pygame.mask.from_surface(surface)
 
-    def hitbox_bottom(self, tick: int, screen_height: int):
-        return Rect((self.visible_left_bound(tick), self.gap_start_pos + PIPE_GAP_HEIGHT), (self.visible_width(tick), screen_height))    
-
-    # Determines whether or not the player is currently colliding with this pipe
     def is_colliding(self, game_state: FlappyNoleGameState):
-        hit_top = self.hitbox_top(game_state.game_tick).colliderect(game_state.character_hitbox)
-        hit_bottom = self.hitbox_bottom(game_state.game_tick, game_state.screen_height).colliderect(game_state.character_hitbox)
-        return hit_top or hit_bottom
+        character_pos = character_relative_position(game_state)
+        # This is the distance in pixels away the pipe is from the player. A positive value indicates
+        # the player has yet to pass through the pipe and a negative value indicates the pipe is behind the player.
+        x_offset: int = round(self.visible_left_bound(game_state.game_tick) - character_pos[0])
+        y_offset: int = round(character_pos[1] * -1)
+        return character_hitbox(game_state).overlap(self.hitbox(game_state.screen_height), (x_offset, y_offset)) != None
+
+    def tophalf(self, tick: int):
+        return pygame.Rect((self.visible_left_bound(tick), 0), (self.visible_width(tick), self.gap_start_pos))
+
+    def bottomhalf(self, tick: int, screen_height: int):
+        return pygame.Rect((self.visible_left_bound(tick), self.gap_start_pos + PIPE_GAP_HEIGHT), (self.visible_width(tick), screen_height))      
 
 # Draws all pipes present in the given game state on to the given screen.
 def draw_pipes(screen, game_state: FlappyNoleGameState):
     for pipe in game_state.pipes:
-        screen.fill(FSU_BLACK, pipe.hitbox_top(game_state.game_tick))      
-        screen.fill(FSU_BLACK, pipe.hitbox_bottom(game_state.game_tick, game_state.screen_height))   
+        screen.fill(FSU_BLACK, pipe.tophalf(game_state.game_tick))      
+        screen.fill(FSU_BLACK, pipe.bottomhalf(game_state.game_tick, game_state.screen_height))   
 
 def pipe_tick(game_state: FlappyNoleGameState):
      try_spawn_pipe(game_state)
