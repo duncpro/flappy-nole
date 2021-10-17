@@ -1,3 +1,4 @@
+from pipes import pipe_tick
 from state import FlappyNoleGameState
 
 gravity = .20
@@ -14,3 +15,8 @@ def tick(game_state: FlappyNoleGameState):
 
         # Shift the character's current postion by the character's current speed.
         game_state.character_vpos += game_state.character_downward_speed  
+        
+        # Document the passage of time by incrementing the game tick timestamp by 1
+        game_state.game_tick += 1
+
+        pipe_tick(game_state)
