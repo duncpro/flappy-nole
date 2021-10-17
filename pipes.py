@@ -41,11 +41,6 @@ class Pipe():
         else:
             return PIPE_WIDTH 
 
-    # Calculates the relative location (distance in pixels from leftmost side of window) of the outer rightbound
-    # of this pipe during the given tick. Exclusive, meaning the pipe is not visible at this pixel.
-    def right_bound_relative(self, tick: int):
-        return self.left_bound_relative(tick) + PIPE_WIDTH
-
     def hitbox_top(self, tick: int):
         return Rect((self.visible_left_bound(tick), 0), (self.visible_width(tick), self.gap_start_pos))
 
