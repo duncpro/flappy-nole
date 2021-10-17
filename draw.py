@@ -1,3 +1,4 @@
+from character import draw_character
 import pygame
 from pipes import draw_pipes
 from constants import FSU_BLACK, FSU_GOLD
@@ -7,8 +8,6 @@ pygame.font.init()
 
 background_img = pygame.image.load("assets/background.xcf")
 
-character_img = pygame.image.load("assets/character.png") # 300x306
-
 # Styles
 title_font = pygame.font.Font("assets/noles_glades_bold.ttf", 80)
 
@@ -16,16 +15,10 @@ title_font = pygame.font.Font("assets/noles_glades_bold.ttf", 80)
 # Makes no changes to the given game state. 
 def draw(screen, game_state: FlappyNoleGameState):
     screen.blit(background_img, (0, 0))
-
-    # Uncoment this line to draw the character's hitbox. Useful for debugging
-    # pygame.draw.rect(screen, FSU_BLACK, game_state.character_hitbox)
-
-    screen.blit(character_img, game_state.character_relative_position)
+    draw_character(screen, game_state)
     draw_pipes(screen, game_state) 
-         
     if game_state.is_game_over:
         draw_game_over(screen, game_state)  
-
     pygame.display.update()
 
 def draw_game_over(screen, game_state: FlappyNoleGameState):
