@@ -3,6 +3,7 @@ from constants import SIDESCROLL_SPEED
 from state import FlappyNoleGameState
 from math import ceil
 
+# The width of the pipe in pixels
 PIPE_WIDTH: int = 100
 
 # The distance between two neighboring pipes in pixels
