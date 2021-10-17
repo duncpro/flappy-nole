@@ -6,7 +6,7 @@ from math import ceil
 PIPE_WIDTH: int = 100
 
 # The distance between two neighboring pipes in pixels
-PIPE_FREQUENCY: int = 200
+PIPE_FREQUENCY: int = 300
 
 # Represents a "Pipe", like the ones in Flappy Bird.
 # This class represents a pipe spatially, not stylistically.
