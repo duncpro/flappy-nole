@@ -84,7 +84,5 @@ def trim_pipes(game_state: FlappyNoleGameState):
 # Calculates an upperbound for the number of pipes which may be visible on the screen at once.
 def max_visible_pipes(screen_width: int):
     intervals_per_window = ceil(screen_width / (PIPE_WIDTH + PIPE_FREQUENCY))
-    if intervals_per_window < 1:
-        return 1
-    else:
-        return intervals_per_window    
+    if intervals_per_window < 1: intervals_per_window = 1
+    return intervals_per_window    
