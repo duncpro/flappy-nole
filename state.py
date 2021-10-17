@@ -15,7 +15,7 @@ class FlappyNoleGameState:
         self.new_game()            
 
     def character_jump(self):
-        self.character_downward_speed = -10      
+        self.character_downward_speed = -10     
 
     def new_game(self):
         # Speed at which the character is currently moving downwards, measured in pixels per tick.

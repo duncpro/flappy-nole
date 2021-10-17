@@ -1,7 +1,7 @@
 from pipes import pipe_tick
 from state import FlappyNoleGameState
 
-gravity = .20
+gravity = .3
 
 # In-game time is measured in ticks. This function is responsible for shifing
 # the game state forward by a single tick. In other words, this function is responsible

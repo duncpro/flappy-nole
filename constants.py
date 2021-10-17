@@ -3,4 +3,9 @@
 
 # The speed at which the visibility window moves forward horizontally.
 # Measured in ticks per pixel
-SIDESCROLL_SPEED: int = 0.5
+SIDESCROLL_SPEED: int = 0.30
+
+# Colors
+FSU_GARNET = (120, 47, 64)
+FSU_GOLD = (206, 184, 136)
+FSU_BLACK = (44, 42, 41)
