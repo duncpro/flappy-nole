@@ -2,7 +2,7 @@ from constants import CHARACTER_HITBOX_HEIGHT, CHARACTER_HITBOX_WIDTH, FSU_BLACK
 from state import FlappyNoleGameState
 from math import ceil
 from random import randint
-from pygame import Rect
+from pygame import Rect, mask
 
 # The width of the pipes in pixels
 PIPE_WIDTH: int = 100

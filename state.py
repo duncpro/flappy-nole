@@ -16,7 +16,7 @@ class FlappyNoleGameState:
         self.new_game()            
 
     def character_jump(self):
-        self.character_downward_speed = -10     
+        self.character_downward_speed = -9 
 
     def new_game(self):
         # Speed at which the character is currently moving downwards, measured in pixels per tick.
@@ -40,7 +40,9 @@ class FlappyNoleGameState:
 
     @property
     def is_game_over(self):
-        did_character_fall = self.character_vpos > self.screen_height
+        # Allow the player to move off the bottom edge of the screen slightly
+        # to make hitting gaps on the bottom edge of the pipe easier.
+        did_character_fall = self.character_vpos > (self.screen_height + 100)
         return did_character_fall or self.is_colliding
 
     @property
