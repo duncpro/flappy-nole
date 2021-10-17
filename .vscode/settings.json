@@ -7,8 +7,10 @@
         "bash": {
             "path": "/bin/bash",
             "icon": "terminal",
-            "args": ["--init-file", "integrated-terminal-init.sh"]
+            "args": ["--init-file", "${workspaceFolder}/integrated-terminal-init.sh"]
         },
     },
-    "terminal.integrated.defaultProfile.osx": "bash"
+    "terminal.integrated.defaultProfile.osx": "bash",
+    "python.defaultInterpreterPath": "${workspaceFolder}/bin/python3",
+    "explorer.sortOrder": "type"
 }
