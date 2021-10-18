@@ -1,3 +1,4 @@
+from constants import BRIGHT_RED, DEBUG_MODE_ENABLED
 from state import FlappyNoleGameState
 import pygame
 
@@ -16,16 +17,20 @@ def character_vmove(game_state: FlappyNoleGameState):
     # Shift the character's current postion by the character's current speed.
     game_state.character_vpos += game_state.character_downward_speed
 
-CHARACTER_IMAGE = pygame.image.load("assets/character.png") 
+CHARACTER_IMAGE = pygame.image.load("assets/character.xcf") 
+CHARACTER_HITBOX = pygame.mask.from_surface(CHARACTER_IMAGE)  
 
 def draw_character(screen, game_state: FlappyNoleGameState):  
     screen.blit(CHARACTER_IMAGE, character_relative_position(game_state)) 
+    if DEBUG_MODE_ENABLED:
+        draw_character_hitbox(screen, game_state)    
 
-def character_hitbox(game_state: FlappyNoleGameState):
-    surface = pygame.Surface((CHARACTER_IMAGE.get_width(), CHARACTER_IMAGE.get_height()))
-    surface.blit(CHARACTER_IMAGE, (0, 0))
-    mask = pygame.mask.from_surface(surface)
-    return mask
+def draw_character_hitbox(screen, game_state: FlappyNoleGameState):
+    character_pos = character_relative_position(game_state)
+    for point in CHARACTER_HITBOX.outline():
+        offset_point = (round(point[0] + character_pos[0]), round(point[1] + character_pos[1]))
+        screen.set_at(offset_point, BRIGHT_RED)
+     
 
 def character_relative_position(game_state: FlappyNoleGameState):
     return ((game_state.screen_width - CHARACTER_IMAGE.get_width()) / 2, game_state.character_vpos)

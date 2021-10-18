@@ -1,4 +1,4 @@
-from character import character_hitbox, character_relative_position
+from character import CHARACTER_HITBOX, character_relative_position
 from constants import BLACK, FSU_BLACK, SIDESCROLL_SPEED
 from state import FlappyNoleGameState
 from math import ceil
@@ -56,7 +56,7 @@ class Pipe():
         # the player has yet to pass through the pipe and a negative value indicates the pipe is behind the player.
         x_offset: int = round(self.visible_left_bound(game_state.game_tick) - character_pos[0])
         y_offset: int = round(character_pos[1] * -1)
-        return character_hitbox(game_state).overlap(self.hitbox(game_state.screen_height), (x_offset, y_offset)) != None
+        return CHARACTER_HITBOX.overlap(self.hitbox(game_state.screen_height), (x_offset, y_offset)) != None
 
     def tophalf(self, tick: int):
         return pygame.Rect((self.visible_left_bound(tick), 0), (self.visible_width(tick), self.gap_start_pos))
