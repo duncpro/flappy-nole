@@ -9,6 +9,5 @@ Still a work in progress.
 
 
 ## Screen Capture
-(Slow-motion since I don't have a nice graphics card for screen recording.)
 
  ![FlappyNole Demo](./readme-assets/demo-video.gif)
