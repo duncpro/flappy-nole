@@ -7,7 +7,10 @@ import pygame
 
 # The width and height of the pipes in pixels
 PIPE_WIDTH: int = 100
-PIPE_HEIGHT = 752
+
+# load top and bottom images used for pipes
+TOP_PIPE = pygame.image.load('assets/Pipe_Inv.png')
+BOTTOM_PIPE = pygame.image.load('assets/Pipe.png')
 
 # The distance between two neighboring pipes in pixels
 PIPE_FREQUENCY: int = 500
@@ -63,7 +66,7 @@ class Pipe():
 
     # need to take into account the height of the image
     def tophalf(self, tick: int):
-        return pygame.Rect((self.visible_left_bound(tick), 0 - PIPE_HEIGHT + self.gap_start_pos ), (self.visible_width(tick), self.gap_start_pos))
+        return pygame.Rect((self.visible_left_bound(tick), 0), (self.visible_width(tick), self.gap_start_pos))
 
     def bottomhalf(self, tick: int, screen_height: int):
         return pygame.Rect((self.visible_left_bound(tick), self.gap_start_pos + PIPE_GAP_HEIGHT), (self.visible_width(tick), screen_height))
@@ -71,8 +74,8 @@ class Pipe():
 # Draws all pipes present in the given game state on to the given screen.
 def draw_pipes(screen, game_state: FlappyNoleGameState):
     for pipe in game_state.pipes:
-        screen.blit(pipe.top_image, pipe.tophalf(game_state.game_tick))
-        screen.blit(pipe.bottom_image, pipe.bottomhalf(game_state.game_tick, game_state.screen_height))
+        screen.blit(TOP_PIPE, pipe.tophalf(game_state.game_tick).move(0, -TOP_PIPE.get_height() + pipe.gap_start_pos))
+        screen.blit(BOTTOM_PIPE, pipe.bottomhalf(game_state.game_tick, game_state.screen_height))
 
 def pipe_tick(game_state: FlappyNoleGameState):
      try_spawn_pipe(game_state)
