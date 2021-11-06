@@ -16,6 +16,6 @@ while game_state.is_app_running:
         handle_pygame_event(event, game_state)
     tick(game_state)    
     draw(screen, game_state)    
-    clock.tick(120)
+    clock.tick(50)
 
 exit()    
