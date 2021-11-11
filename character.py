@@ -6,10 +6,10 @@ import pygame
 # and rendering of the game character.
 
 def character_jump(game_state: FlappyNoleGameState):
-    game_state.character_downward_speed = -9 
+    game_state.character_downward_speed = -14
 
 def character_vmove(game_state: FlappyNoleGameState):
-    GRAVITY = .20
+    GRAVITY = .50
     # Simulate gravity by increasing the speed at which the character is falling every tick.
     # To simulate a jump just set the downward speed to some negative value.
     # This will cause the character to begin moving upwards until is overtaken by gravity oncemore.
