@@ -6,7 +6,7 @@ from state import FlappyNoleGameState
 
 pygame.font.init()
 
-background_img = pygame.image.load("assets/background.xcf")
+background_img = pygame.image.load("assets/Wescott.png")
 
 # Styles
 title_font = pygame.font.Font("assets/noles_glades_bold.ttf", 80)
