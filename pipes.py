@@ -21,9 +21,6 @@ PIPE_GAP_HEIGHT: int = 300
 # Represents a "Pipe", like the ones in Flappy Bird.
 class Pipe():
     def __init__(self, left_bound_abs_pos: int, gap_start_pos: int):
-        self.top_image = pygame.image.load('assets/Pipe_Inv.png')
-        self.bottom_image = pygame.image.load('assets/Pipe.png')
-
         # The absolute location of this pipe within the world measured in pixels from the starting line.
         self.left_bound_abs_pos = left_bound_abs_pos
         # The position of the topmost pixel in the gap of this pipe.
@@ -50,10 +47,10 @@ class Pipe():
 
     def hitbox(self, screen_height):
         surface = pygame.Surface((PIPE_WIDTH, screen_height))
-        # Arbitrary non-transparent color to represent pixels which count as collision points.
+        # represents pixels which count as collision points.
         # Only used to compute the mask, not actual styling.
-        surface.fill(BLACK, ((0, 0), (PIPE_WIDTH, self.gap_start_pos)))
-        surface.fill(BLACK, ((0, self.gap_start_pos + PIPE_GAP_HEIGHT), (PIPE_WIDTH, screen_height)))
+        surface.blit(TOP_PIPE, (0, -TOP_PIPE.get_height() + self.gap_start_pos))
+        surface.blit(BOTTOM_PIPE, (0, self.gap_start_pos + PIPE_GAP_HEIGHT))
         return pygame.mask.from_surface(surface)
 
     def is_colliding(self, game_state: FlappyNoleGameState):
@@ -78,8 +75,8 @@ def draw_pipes(screen, game_state: FlappyNoleGameState):
         screen.blit(BOTTOM_PIPE, pipe.bottomhalf(game_state.game_tick, game_state.screen_height))
 
 def pipe_tick(game_state: FlappyNoleGameState):
-     try_spawn_pipe(game_state)
-     trim_pipes(game_state)
+    try_spawn_pipe(game_state)
+    trim_pipes(game_state)
 
 # Checks to see if a new pipe should be spawned this tick, and if so, spawns it.
 def try_spawn_pipe(game_state: FlappyNoleGameState):
@@ -93,9 +90,9 @@ def try_spawn_pipe(game_state: FlappyNoleGameState):
 def trim_pipes(game_state: FlappyNoleGameState):
     if len(game_state.pipes) > (max_visible_pipes(game_state.screen_width) + 1):
         del game_state.pipes[0]
-        
+
 # Calculates an upperbound for the number of pipes which may be visible on the screen at once.
 def max_visible_pipes(screen_width: int):
     intervals_per_window = ceil(screen_width / (PIPE_WIDTH + PIPE_FREQUENCY))
     if intervals_per_window < 1: intervals_per_window = 1
-    return intervals_per_window    
+    return intervals_per_window
