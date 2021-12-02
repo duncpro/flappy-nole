@@ -7,9 +7,10 @@ from character import character_vmove
 # for the passage of time inside the game.
 def tick(game_state: FlappyNoleGameState):
     if game_state.is_game_over == False:
-        character_vmove(game_state)
-        
-        # Document the passage of time by incrementing the game tick timestamp by 1
-        game_state.game_tick += 1
+        if game_state.is_main_menu == False:
+            character_vmove(game_state)
 
-        pipe_tick(game_state)
+            # Document the passage of time by incrementing the game tick timestamp by 1
+            game_state.game_tick += 1
+
+            pipe_tick(game_state)

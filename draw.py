@@ -7,19 +7,27 @@ from state import FlappyNoleGameState
 pygame.font.init()
 
 background_img = pygame.image.load("assets/Wescott.png")
+# menu_img = pygame.image.load("assets/")
 
 # Styles
-title_font = pygame.font.Font("assets/noles_glades_bold.ttf", 80)
+title_font = pygame.font.Font("assets/noles.ttf", 80)
 
 # Simply draws the given game state on to the given screen.
 # Makes no changes to the given game state. 
-def draw(screen, game_state: FlappyNoleGameState):
+def draw(screen, manager, game_state: FlappyNoleGameState):
     screen.blit(background_img, (0, 0))
-    draw_character(screen, game_state)
-    draw_pipes(screen, game_state) 
-    if game_state.is_game_over:
-        draw_game_over(screen, game_state)  
+    if game_state.is_main_menu:
+        draw_main_menu(screen, manager)
+    elif game_state.is_game_over:
+        draw_game_over(screen, game_state)
+    else:
+        draw_character(screen, game_state)
+        draw_pipes(screen, game_state)
     pygame.display.update()
+
+def draw_main_menu(screen, manager):
+    # screen.fill((255,255,255))
+    manager.draw_ui(screen)
 
 def draw_game_over(screen, game_state: FlappyNoleGameState):
     alert = title_font.render("Game Over", True, FSU_GOLD, FSU_BLACK)

@@ -3,4 +3,4 @@
 # a new VSCode integrated terminal is started.
 
 # Automatically initialize the python3 virtual environment.
-source ./bin/activate
+source ./venv/bin/activate
