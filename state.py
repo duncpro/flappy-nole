@@ -28,9 +28,6 @@ class FlappyNoleGameState:
         # they exit the view port.
         self.total_pipes_spawned = 0
 
-    def set_username(self, username):
-        self.username = username
-
     @property
     def is_main_menu(self):
         return self.game_tick == -1
@@ -60,3 +57,10 @@ class FlappyNoleGameState:
     @property
     def segment_visibility_window(self):
         return self.screen_width * SIDESCROLL_SPEED
+
+    # Simple setter for the username property of this class.
+    # In general assigning directly to username is probably more clear.
+    # But this function remains useful for scenarios in which assigment to the username property needs
+    # to be encapsulated within a lambda function / callback.
+    def set_username(self, username):
+        self.username = username

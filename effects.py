@@ -1,15 +1,16 @@
-# A list of all the effects which exist within the application.
+# A list of all the "effects" which exist within the declarative application scope.
 effects = []
 
 # Represents an imperative effect within a block of declarative code.
-# Intended for use internally by useEffect. Should not be used anywhere else.
+# Intended for use internally by the useEffect function. Should not be used anywhere else.
 class EffectEntry:
     def __init__(self, id):
         self.id = id
 
 # Utilitiy for running effectual code in a declarative environment. Similar to React.js's useEffect hook.
-# The given effect callback is run when any of the given dependencies changes.
-# The caller should take care to assign a unique id which is stable across different ticks.
+# The given effect callback is executed when any of the given dependencies changes.
+# The caller should take care to assign a unique id which is stable across time.
+# For an example usage see score.py
 def useEffect(effect, id, dependencies):
     entry = None
 
