@@ -27,6 +27,9 @@ class FlappyNoleGameState:
         # they exit the view port.
         self.total_pipes_spawned = 0
 
+    def set_username(self, username):
+        self.username = username
+
     @property
     def is_main_menu(self):
         return self.game_tick == -1

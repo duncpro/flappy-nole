@@ -104,6 +104,7 @@ class UI_Manager():
             conn.close()
             return False
         conn.close()
+        self.on_login(username)
         return True
 
     def create_user(self, username, password):

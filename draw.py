@@ -3,7 +3,7 @@ import pygame
 from pipes import draw_pipes
 from styles import FSU_BLACK, FSU_GOLD, FSU_GARNET, horizontally_centered, title_font, centered
 from state import FlappyNoleGameState
-from score import draw_score
+from score import draw_score, draw_high_scores
 
 background_img = pygame.image.load("assets/Wescott.png")
 
@@ -26,10 +26,10 @@ def draw_main_menu(screen, manager, game_state: FlappyNoleGameState):
     # manager.draw_ui(screen)
     alert = title_font.render("Main Menu", True, FSU_GARNET)
     manager.draw_ui(screen)
-
     screen.blit(alert, (horizontally_centered(game_state.screen_width, alert), game_state.screen_height/5))
 
 def draw_game_over(screen, manager,game_state: FlappyNoleGameState):
     manager.draw_ui(screen)
     alert = title_font.render("Game Over", True, FSU_GARNET)
-    screen.blit(alert, centered(game_state.screen_size, alert))
+    draw_high_scores(game_state, screen, 160)
+    screen.blit(alert, (horizontally_centered(game_state.screen_width, alert), 10))
