@@ -14,23 +14,28 @@ def handle_pygame_event(event, menu, game_state: FlappyNoleGameState):
         handle_keyboard_event(event, game_state)
     if event.type == USEREVENT:
         if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+            menu.message(3)
             if event.ui_element == menu.login_button:
                 if menu.try_login(menu.username_input.get_text(), menu.password_input.get_text()):
                     game_state.new_game()
                     menu.disable_buttons()
+                else:
+                    menu.message(1)
             if event.ui_element == menu.create_button:
                 menu.clear_text()
                 menu.create_user_buttons()
+                game_state.title_text="NEW USER"
             if event.ui_element == menu.cancel_button:
-                # clear text entry boxes
+                game_state.title_text="MAIN MENU"
                 menu.clear_text()
-
-                # call this to essentially "return" to the login screen
                 menu.login_screen_buttons()
             if event.ui_element == menu.submit_button:
                 if menu.create_user(menu.username_input.get_text(),menu.password_input.get_text()):
                     menu.clear_text()
                     menu.login_screen_buttons()
+                    game_state.title_text = "MAIN MENU"
+                else:
+                    menu.message(2)
 
     menu.manager.process_events(event)
 
