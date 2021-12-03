@@ -23,7 +23,6 @@ def draw(screen, manager, game_state: FlappyNoleGameState):
     pygame.display.update()
 
 def draw_main_menu(screen, manager, game_state: FlappyNoleGameState):
-    # manager.draw_ui(screen)
     alert = title_font.render(game_state.title_text, True, FSU_GARNET)
     manager.draw_ui(screen)
     screen.blit(alert, (horizontally_centered(game_state.screen_width, alert), game_state.screen_height/3.5))

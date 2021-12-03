@@ -128,8 +128,8 @@ class UI_Manager():
             try:
                 with sqlite3.connect('data.db') as conn:
                     cur = conn.cursor()
-                    cur.execute("INSERT INTO Users (Username,Password,RememberMe,HighScore) "
-                            "VALUES(?,?,?,?)", (username, password, int(0), int(0)))
+                    cur.execute("INSERT INTO Users (Username,Password) "
+                            "VALUES(?,?)", (username, password))
                     conn.commit()
             except:
                 conn.rollback()
@@ -170,3 +170,10 @@ class UI_Manager():
         self.submit_button.disable()
         self.cancel_button.disable()
         self.menu_container.hide()
+
+
+def create_users_table():
+    connection = sqlite3.connect('data.db')
+    connection.execute('CREATE TABLE IF NOT EXISTS Users (Username TEXT, Password TEXT)')
+    connection.commit()
+    connection.close()   
