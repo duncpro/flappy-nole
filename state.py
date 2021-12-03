@@ -22,7 +22,10 @@ class FlappyNoleGameState:
         self.character_vpos = self.screen_height / 2
         self.game_tick = 0
         self.pipes = []
-        self.score = 0
+        # The number of pipes which have been added to the game world.
+        # Not necessarily the number of pipes currently in the pipes array, as pipes are despawned after
+        # they exit the view port.
+        self.total_pipes_spawned = 0
 
     @property
     def is_main_menu(self):

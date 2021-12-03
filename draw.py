@@ -1,16 +1,12 @@
 from character import draw_character
 import pygame
 from pipes import draw_pipes
-from constants import FSU_BLACK, FSU_GOLD, FSU_GARNET
+from styles import FSU_BLACK, FSU_GOLD, FSU_GARNET, horizontally_centered, title_font, centered
 from state import FlappyNoleGameState
-
-pygame.font.init()
+from score import draw_score
 
 background_img = pygame.image.load("assets/Wescott.png")
-# menu_img = pygame.image.load("assets/")
 
-# Styles
-title_font = pygame.font.Font("assets/noles.ttf", 65)
 # Simply draws the given game state on to the given screen.
 # Makes no changes to the given game state. 
 def draw(screen, manager, game_state: FlappyNoleGameState):
@@ -22,8 +18,7 @@ def draw(screen, manager, game_state: FlappyNoleGameState):
     else:
         draw_character(screen, game_state)
         draw_pipes(screen, game_state)
-        score = title_font.render(str(game_state.score), True, FSU_GOLD)
-        screen.blit(score, (10, 10))
+        draw_score(screen, game_state)
     pygame.display.update()
 
 def draw_main_menu(screen, manager, game_state: FlappyNoleGameState):
@@ -39,16 +34,3 @@ def draw_game_over(screen, manager,game_state: FlappyNoleGameState):
     screen.blit(alert, centered(game_state.screen_size, alert))
 
 # Drawing Utilities    
-
-def horizontally_centered(screen_width, surface):
-    return (screen_width - surface.get_width()) / 2
-
-def vertically_centered(screen_height, surface):
-    return (screen_height - surface.get_height()) / 2        
-    
-def centered(screen_size, surface):
-    x: int = horizontally_centered(screen_size[0], surface)
-    y: int = vertically_centered(screen_size[1], surface)
-
-    return (x, y)
-        

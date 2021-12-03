@@ -1,5 +1,5 @@
 from character import CHARACTER_HITBOX, character_relative_position
-from constants import BLACK, SIDESCROLL_SPEED
+from constants import SIDESCROLL_SPEED
 from state import FlappyNoleGameState
 from math import ceil
 from random import randint
@@ -20,12 +20,16 @@ PIPE_GAP_HEIGHT: int = 300
 
 # Represents a "Pipe", like the ones in Flappy Bird.
 class Pipe():
-    def __init__(self, left_bound_abs_pos: int, gap_start_pos: int):
+    def __init__(self, left_bound_abs_pos: int, gap_start_pos: int, pipe_no: int):
         # The absolute location of this pipe within the world measured in pixels from the starting line.
         self.left_bound_abs_pos = left_bound_abs_pos
         # The position of the topmost pixel in the gap of this pipe.
         # In this case, position is defined as the distance from the topmost edge of the screen to the pixel, in pixels.
         self.gap_start_pos = gap_start_pos
+        # The number of pipes which have been spawned in the world at the time this pipe is spawned.
+        # For example, if this is the first pipe in the world, then a value of 1 will be stored here.
+        # There is no upper bound for this value, as it is dependent on the length of time the player can survive.e
+        self.pipe_no = pipe_no
 
     # Calculates the relative location (distance in pixels from leftmost side of window) of the leftbound
     # of this pipe during the given tick.
@@ -38,7 +42,7 @@ class Pipe():
         # if leftbound < 0: leftbound = 0
         return leftbound
 
-    # Calculates the width of this column which is still visible inside the user.
+    # Calculates the width of this column which is still visible in the viewport.
     def visible_width(self, tick: int):
         if self.left_bound_relative(tick) < 0:
             return PIPE_WIDTH - abs(self.left_bound_relative(tick))
@@ -78,18 +82,19 @@ def pipe_tick(game_state: FlappyNoleGameState):
     try_spawn_pipe(game_state)
     trim_pipes(game_state)
 
+
 # Checks to see if a new pipe should be spawned this tick, and if so, spawns it.
 def try_spawn_pipe(game_state: FlappyNoleGameState):
     spawn_pipe = game_state.game_tick % (SIDESCROLL_SPEED * (PIPE_FREQUENCY + PIPE_WIDTH)) == 0
     if spawn_pipe:
         pos = int((game_state.game_tick + game_state.segment_visibility_window) / SIDESCROLL_SPEED)
         gap_start_pos = randint(0, game_state.screen_height - PIPE_GAP_HEIGHT)
-        game_state.pipes.append(Pipe(pos, gap_start_pos))
+        game_state.total_pipes_spawned += 1
+        game_state.pipes.append(Pipe(pos, gap_start_pos, game_state.total_pipes_spawned))
 
 # Despawns pipes that exit the visible world.
 def trim_pipes(game_state: FlappyNoleGameState):
     if len(game_state.pipes) > (max_visible_pipes(game_state.screen_width) + 1):
-        game_state.score += 1       # random place to add it, but the simplest??
         del game_state.pipes[0]
 
 # Calculates an upperbound for the number of pipes which may be visible on the screen at once.

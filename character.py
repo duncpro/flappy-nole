@@ -1,4 +1,5 @@
-from constants import BRIGHT_RED, DEBUG_MODE_ENABLED
+from styles import BRIGHT_RED
+from constants import DEBUG_MODE_ENABLED
 from state import FlappyNoleGameState
 import pygame
 
