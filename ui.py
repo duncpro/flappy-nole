@@ -8,7 +8,7 @@ SCREEN_WIDTH = 576
 SCREEN_HEIGHT = 780
 
 # starting menu size is relative to game window
-MENU_SIZE = (SCREEN_WIDTH/1.5,SCREEN_HEIGHT/1.5)
+MENU_SIZE = (SCREEN_WIDTH/1.5,SCREEN_HEIGHT/2)
 
 # offset to place menu in the middle of the menu
 MENU_OFFSET = (SCREEN_WIDTH/2-MENU_SIZE[0]/2,SCREEN_HEIGHT/2-MENU_SIZE[1]/2)
@@ -41,8 +41,8 @@ class UI_Manager():
             text="USERNAME",manager=self.manager, container=self.menu_container, object_id="label")
         self.user_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET, 1.5*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]+TITLE_SPACE_Y),
             TEXTBOX_LABEL_SIZE),text="PASSWORD", manager=self.manager, container=self.menu_container, object_id="label")
-        self.toggle_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((2*TEXTBOX_LABEL_OFFSET, TITLE_SPACE_Y+3*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]),
-             (TEXTBOX_LABEL_SIZE[0]*1.2, TEXTBOX_LABEL_SIZE[1]/1.7)),text="Remember Me", manager=self.manager, container=self.menu_container, object_id="text_only")
+        # self.toggle_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((2*TEXTBOX_LABEL_OFFSET, TITLE_SPACE_Y+3*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]),
+        #      (TEXTBOX_LABEL_SIZE[0]*1.2, TEXTBOX_LABEL_SIZE[1]/1.7)),text="Remember Me", manager=self.manager, container=self.menu_container, object_id="text_only")
 
         # text boxes used to login and create new user
         self.username_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[0], TITLE_SPACE_Y+TEXTBOX_LABEL_OFFSET), TEXTBOX_SIZE),
@@ -51,9 +51,9 @@ class UI_Manager():
               1.5*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]+TITLE_SPACE_Y), TEXTBOX_SIZE), container=self.menu_container,manager=self.manager)
 
         # Buttons used on the log in screen
-        self.toggle_button = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET, TITLE_SPACE_Y+3*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]), (15, 15)), text="", container=self.menu_container, manager=self.manager,
-            object_id="toggle")
+        # self.toggle_button = pygame_gui.elements.UIButton(
+        #     relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET, TITLE_SPACE_Y+3*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]), (15, 15)), text="", container=self.menu_container, manager=self.manager,
+        #     object_id="toggle")
 
         self.login_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((BUTTON_PADDING,MENU_SIZE[1]-BUTTON_PADDING+BUTTON_OFFSET), BUTTON_SIZE),
               text='LOGIN',container=self.menu_container,manager=self.manager)
@@ -71,6 +71,15 @@ class UI_Manager():
         self.cancel_button.hide()
 
 
+        # login error messages
+        self.user_label = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET,MENU_SIZE[1]/2),(MENU_SIZE[0],80)),wrap_to_height=True,
+            html_text="<font color='#FF0000'>INVALID LOGIN INFORMATION PROVIDED</font>",manager=self.manager, container=self.menu_container, object_id="text_box")
+        self.error_label = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET, MENU_SIZE[1] / 2), (MENU_SIZE[0], 80)),
+            wrap_to_height=True,html_text="<font color='#FF0000'>BOTH USERNAME AND PASSWORD MUST BE<br>PROVIDED. USERNAME MUST BE UNIQUE</font>", manager=self.manager,
+            container=self.menu_container, object_id="text_box")
+
+        self.user_label.hide()
+        self.error_label.hide()
         # buttons for game over
         # self.manager = pygame_gui.UIManager((width, height), 'assets/menu.json')
         # self.menu_container = pygame_gui.elements.UIPanel(pygame.Rect((MENU_OFFSET), MENU_SIZE), manager=self.manager,
@@ -126,6 +135,16 @@ class UI_Manager():
             finally:
                 conn.close()
                 return True
+
+    def message(self, num):
+        if num == 1:
+            self.user_label.show()
+        if num == 2:
+            self.error_label.show()
+        elif num == 3:
+            self.user_label.hide()
+            self.error_label.hide()
+
 
 
     def clear_text(self):

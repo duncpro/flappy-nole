@@ -8,6 +8,7 @@ class FlappyNoleGameState:
         self.screen_height = 780
         self.is_app_running = True
         # self.score = 0
+        self.title_text = "MAIN MENU"
 
         self.new_game()
 
