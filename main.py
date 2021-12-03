@@ -35,7 +35,7 @@ while game_state.is_app_running:
     tick(game_state)
     menu.manager.update(clock.tick())
     draw(screen, menu.manager, game_state)
-    # clock.tick()
+    clock.tick(35)
 
 
 pygame.quit()

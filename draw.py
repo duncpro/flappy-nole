@@ -32,5 +32,3 @@ def draw_game_over(screen, manager,game_state: FlappyNoleGameState):
     manager.draw_ui(screen)
     alert = title_font.render("Game Over", True, FSU_GOLD, FSU_BLACK)
     screen.blit(alert, centered(game_state.screen_size, alert))
-
-# Drawing Utilities    
