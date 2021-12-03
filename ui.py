@@ -146,8 +146,6 @@ class UI_Manager():
             self.user_label.hide()
             self.error_label.hide()
 
-
-
     def clear_text(self):
         self.username_input.set_text("")
         self.password_input.set_text("")
