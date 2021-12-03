@@ -4,7 +4,7 @@ from styles import title_font, FSU_GOLD
 
 def calc_score(game_state: FlappyNoleGameState):
     # If no pipes are currently spawned (game_state.pipes is empty), then the player's score is equal
-    # to the pipe number of the last pipe which WAS spawned.
+    # to the total number of pipes which have been spawned.
     if len(game_state.pipes) == 0:
         return game_state.total_pipes_spawned
 
