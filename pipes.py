@@ -89,6 +89,7 @@ def try_spawn_pipe(game_state: FlappyNoleGameState):
 # Despawns pipes that exit the visible world.
 def trim_pipes(game_state: FlappyNoleGameState):
     if len(game_state.pipes) > (max_visible_pipes(game_state.screen_width) + 1):
+        game_state.score += 1       # random place to add it, but the simplest??
         del game_state.pipes[0]
 
 # Calculates an upperbound for the number of pipes which may be visible on the screen at once.

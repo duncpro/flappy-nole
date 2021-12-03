@@ -1,12 +1,11 @@
 import sys
-
+import sqlite3
 import pygame
-# import pygame_gui
 from draw import draw
 from pygame_event_handler import handle_pygame_event
 from state import FlappyNoleGameState
 from tick import tick
-from menu import Menu
+from ui import UI_Manager
 
 game_state = FlappyNoleGameState()
 
@@ -16,15 +15,17 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((game_state.screen_width, game_state.screen_height))
 
 # set up UIManager object for gui
-menu = Menu(game_state.screen_width, game_state.screen_height)
-import sqlite3
+menu = UI_Manager(game_state.screen_width, game_state.screen_height)
+
 
 conn = sqlite3.connect('data.db')
 try:
     conn.execute('CREATE TABLE Users (Username TEXT, Password TEXT, RememberMe INTEGER, HighScore INTEGER)')
+    conn.execute('CREATE TABLE CurrentUser (Username TEXT, Password TEXT, RememberMe INTEGER, HighScore INTEGER)')
 except:
-    print("table already exists")
-conn.close()
+    conn.rollback()
+finally:
+    conn.close()
 
 while game_state.is_app_running:
     for event in pygame.event.get():
