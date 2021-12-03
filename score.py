@@ -28,7 +28,14 @@ def create_score_table():
 
 def persist_score(username, score):
     connection = sqlite3.connect('data.db')
-    connection.execute("INSERT INTO score (username, score) VALUES (?, ?);", (username, score))
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM score where username = ?", (username,))
+    user = cursor.fetchone()
+    if user is not None:
+        if user[1] < score:
+            cursor.execute("UPDATE score SET score = ? WHERE username = ?;", (score, username))
+    else:
+        cursor.execute("INSERT INTO score (username, score) VALUES (?, ?);", (username, score))
     connection.commit()
     connection.close()
     pass
