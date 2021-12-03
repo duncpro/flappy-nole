@@ -30,5 +30,10 @@ def draw_main_menu(screen, manager, game_state: FlappyNoleGameState):
 def draw_game_over(screen, manager,game_state: FlappyNoleGameState):
     manager.draw_ui(screen)
     alert = title_font.render("Game Over", True, FSU_GARNET)
+    title_font.set_underline(True)
+    alert_2 = title_font.render("High Scores", True, FSU_BLACK)
+    title_font.set_underline(False)
+
     draw_high_scores(game_state, screen, 160)
     screen.blit(alert, (horizontally_centered(game_state.screen_width, alert), 10))
+    screen.blit(alert_2, (horizontally_centered(game_state.screen_width, alert_2), 20 + alert_2.get_height()))
