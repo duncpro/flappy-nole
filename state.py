@@ -7,8 +7,8 @@ class FlappyNoleGameState:
         self.screen_width = 576
         self.screen_height = 780
         self.is_app_running = True
-        # self.score = 0
         self.title_text = "MAIN MENU"
+        self.username = None
 
         self.new_game()
 
@@ -57,6 +57,10 @@ class FlappyNoleGameState:
     @property
     def segment_visibility_window(self):
         return self.screen_width * SIDESCROLL_SPEED
+
+    @property
+    def is_logged_in(self):
+        return self.username != None
 
     # Simple setter for the username property of this class.
     # In general assigning directly to username is probably more clear.

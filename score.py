@@ -28,18 +28,23 @@ def create_score_table():
 
 def persist_score(username, score):
     connection = sqlite3.connect('data.db')
-    connection.execute("INSERT INTO score (username, score) VALUES (?, ?);", (username, score))
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM score where username = ?", (username,))
+    user = cursor.fetchone()
+    if user is not None:
+        if user[1] < score:
+            cursor.execute("UPDATE score SET score = ? WHERE username = ?;", (score, username))
+    else:
+        cursor.execute("INSERT INTO score (username, score) VALUES (?, ?);", (username, score))
     connection.commit()
     connection.close()
     pass
 
 def score_tick(game_state: FlappyNoleGameState):
+    if game_state.is_game_over == False or game_state.is_logged_in == False: return
     score: int = calc_score(game_state)
     username = game_state.username
-
-    # Anytime the game is over, persist the score of the game to the database.
-    if (game_state.is_game_over):
-        useEffect(lambda: persist_score(username, score), "persist_score", (username, score))    
+    useEffect(lambda: persist_score(username, score), "persist_score", (username, score))    
 
 def draw_score(screen, game_state: FlappyNoleGameState):
     score = title_font.render(str(calc_score(game_state)), True, FSU_GOLD)
