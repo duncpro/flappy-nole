@@ -28,7 +28,7 @@ class Pipe():
         self.gap_start_pos = gap_start_pos
         # The number of pipes which have been spawned in the world at the time this pipe is spawned.
         # For example, if this is the first pipe in the world, then a value of 1 will be stored here.
-        # There is no upper bound for this value, as it is dependent on the length of time the player can survive.e
+        # There is no upper bound for this value, as it is dependent on the length of time the player can survive.
         self.pipe_no = pipe_no
 
     # Calculates the relative location (distance in pixels from leftmost side of window) of the leftbound
