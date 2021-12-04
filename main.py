@@ -1,5 +1,4 @@
 import sys
-import sqlite3
 import pygame
 from draw import draw
 from pygame_event_handler import handle_pygame_event
@@ -30,7 +29,7 @@ while game_state.is_app_running:
     menu.on_login = game_state.set_username
     menu.manager.update(clock.tick())
     draw(screen, menu.manager, game_state)
-    clock.tick(35)
+    clock.tick(45)
 
 
 pygame.quit()
