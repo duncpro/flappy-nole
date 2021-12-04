@@ -41,12 +41,10 @@ def persist_score(username, score):
     pass
 
 def score_tick(game_state: FlappyNoleGameState):
+    if game_state.is_game_over == False or game_state.is_logged_in == False: return
     score: int = calc_score(game_state)
     username = game_state.username
-
-    # Anytime the game is over, persist the score of the game to the database.
-    if (game_state.is_game_over):
-        useEffect(lambda: persist_score(username, score), "persist_score", (username, score))    
+    useEffect(lambda: persist_score(username, score), "persist_score", (username, score))    
 
 def draw_score(screen, game_state: FlappyNoleGameState):
     score = title_font.render(str(calc_score(game_state)), True, FSU_GOLD)
