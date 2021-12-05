@@ -28,18 +28,19 @@ Duncan designed and developed the horizontal world space mechanism. Pipes are pl
 and modular arithmetic. 
 
 ### Circular Hitbox and Pipe Hitboxes
-Utilized pygame to create a mesh of the Seminole Head which is used for collision detection between rectangular Pipe hitboxes. This system was later exapnded by Taylor.
+Utilized pygame to create a mesh of the Seminole Head which is used for collision detection between rectangular Pipe hitboxes. 
 
 ### Scoring
 Duncan developed the score calculation algorithm. The score is a function of the number of pipes currently spawened in the world, the player's position, and the total number of pipes which have ever existed (spawned or not) within the world.
 
-## Instructions for use
-Create a login using a unique username. When playing, use space bar to "jump".
+### Application Architecture
+Duncan designed the main project structure. The app is built in a reactive style, where changes to the state are seperated from the actual rendering of the game. The main game loop is split into three phases.
+1. Handle User Input
+2. Handle Side Effects (progress the game forward through time)
+3. Draw the Game State to the Screen
 
-## Credits
-- Duncan Proctor
-- Taylor Mathes
-- Garret Mathes
+# Instructions for use
+Create a login using a unique username. When playing, use space bar to "jump".
 
 ## Resources
 #### Images
