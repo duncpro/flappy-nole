@@ -19,7 +19,7 @@ Taylor designed the graphics used for pipes and the game background.
 ### Main Menu and User Accounts
 Taylor developed the main menu, the sign-up screen, and the user account management system.
 
-## Garett
+## Garrett
 Worked on graphics, movement, testing code, high score saving, editing logo to work with hitbox
 
 ## Duncan 
