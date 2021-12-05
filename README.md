@@ -40,7 +40,14 @@ Duncan designed the main project structure. The app is built in a reactive style
 3. Draw the Game State to the Screen
 
 # Instructions for use
-Create a login using a unique username. When playing, use space bar to "jump".
+1. Make sure pygame and pygame_gui are installed.
+
+2. Then run `python3 main.py` in the project directory.
+
+3. Create a login using a unique username. When playing, use space bar to "jump".
+
+# Video Explanation
+https://youtu.be/J7QlzxYD1_o
 
 ## Resources
 #### Images
