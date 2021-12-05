@@ -14,7 +14,7 @@ Garrett - worked on graphics, movement, testing code, high score saving, editing
 
 Duncan - worked on pipe system, scoring, and basic application structure
 
-##Instructions for use
+## Instructions for use
 Create a login using a unique username. When playing, use space bar to "jump".
 
 ## Credits
