@@ -25,14 +25,14 @@ Create a login using a unique username. When playing, use space bar to "jump".
 - Garret Mathes
 
 ## Resources
-####Images
+#### Images
 Inspiration for background image and pipes - https://csw.fsu.edu/100years
 
 Player icon - [https://upload.wikimedia.org/wikipedia/en/...](https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Florida_State_Seminoles_logo.svg/350px-Florida_State_Seminoles_logo.svg.png)
 
-####Game Inspiration
+#### Game Inspiration
 Flappy Bird - https://flappybird.io/
-####Materials
+#### Materials
 
 Python Docs - https://docs.python.org/3/
 
