@@ -1,3 +1,4 @@
+from sqlite3.dbapi2 import connect
 from effects import useEffect
 from state import FlappyNoleGameState
 from character import character_relative_position
@@ -28,14 +29,7 @@ def create_score_table():
 
 def persist_score(username, score):
     connection = sqlite3.connect('data.db')
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM score where username = ?", (username,))
-    user = cursor.fetchone()
-    if user is not None:
-        if user[1] < score:
-            cursor.execute("UPDATE score SET score = ? WHERE username = ?;", (score, username))
-    else:
-        cursor.execute("INSERT INTO score (username, score) VALUES (?, ?);", (username, score))
+    connection.execute("INSERT INTO score (username, score) VALUES (?, ?);", (username, score))
     connection.commit()
     connection.close()
     pass
@@ -50,15 +44,25 @@ def draw_score(screen, game_state: FlappyNoleGameState):
     score = title_font.render(str(calc_score(game_state)), True, FSU_GOLD)
     screen.blit(score, (10, 10))
 
-def high_score_row_to_tuple(row):
-    return (row[0], row[1])
+def pull_highest_score(username: str):
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()  
+    cursor.execute("SELECT score FROM score WHERE username = ? ORDER BY score DESC LIMIT 1", (username,))
+    results = cursor.fetchall()
+    connection.close()
+    if len(results) == 0:
+        return 0
+    return results[0][0]    
 
 def pull_high_scores():
     connection = sqlite3.connect('data.db')
     cursor = connection.cursor()
-    cursor.execute("SELECT username, score FROM score ORDER BY SCORE DESC LIMIT 10;")
-    results = map(high_score_row_to_tuple, cursor.fetchall())
-    connection.close
+    # Select the names of the users with the top 10 highest scores.
+    cursor.execute("SELECT username, MAX(score) FROM score GROUP BY username ORDER BY score DESC LIMIT 10;")
+    usernames = map(lambda row: row[0], cursor.fetchall())
+    # Now find the highest score for each of those players
+    results = map(lambda username: (username, pull_highest_score(username),), usernames)
+    connection.close()
     return results
 
 def render_high_scores():
