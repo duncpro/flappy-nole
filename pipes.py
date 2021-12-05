@@ -39,7 +39,6 @@ class Pipe():
     # Calculates the leftmost pixel (relative) of this pipe which is still visible in the window.
     def visible_left_bound(self, tick: int):
         leftbound = self.left_bound_relative(tick)
-        # if leftbound < 0: leftbound = 0
         return leftbound
 
     # Calculates the width of this column which is still visible in the viewport.
