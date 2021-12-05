@@ -9,18 +9,19 @@ pygame
 
 pygame_gui
 
-## Contributors
-### Taylor
-#### Vertical Movement
+# Contributors
+## Taylor
+### Vertical Movement
 Taylor designed the system which is used to position the player vertically over time. The system inclues the concept of a Gravity constant which is added to the player's vertical momentum each tick. The effect being the player's speed of descent increases as time progresses, unless of course the player jumps.
-#### Graphics
+### Graphics
 Taylor designed the graphics used for pipes and the game background.
-#### Main Menu and User Accounts
+### Main Menu and User Accounts
 Taylor developed the main menu, the sign-up screen, and the user account management system.
 
-Garrett - worked on graphics, movement, testing code, high score saving, editing logo to work with hitbox
+## Garett
+Worked on graphics, movement, testing code, high score saving, editing logo to work with hitbox
 
-### Duncan 
+## Duncan 
 #### Horizontal World Movement and Pipes
 Duncan designed and developed the horizontal world space mechanism. Pipes are placed accross the horizontal wordspace at a constant rate such that the pipes are equadistant to each other. Pipe placement is determiend using a frequency constant
 and modular arithmetic. 
