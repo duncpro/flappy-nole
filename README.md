@@ -10,6 +10,7 @@ pygame
 pygame_gui
 
 # Contributors
+The following is a basic outline of the contributions made by each author. See the included git log for complete attribution.
 ## Taylor
 ### Vertical Movement
 Taylor designed the system which is used to position the player vertically over time. The system inclues the concept of a Gravity constant which is added to the player's vertical momentum each tick. The effect being the player's speed of descent increases as time progresses, unless of course the player jumps.
@@ -31,8 +32,6 @@ Utilized pygame to create a mesh of the Seminole Head which is used for collisio
 
 ### Scoring
 Duncan developed the score calculation algorithm. The score is a function of the number of pipes currently spawened in the world, the player's position, and the total number of pipes which have ever existed (spawned or not) within the world.
-
-
 
 
 ## Instructions for use
