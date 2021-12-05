@@ -7,7 +7,7 @@ import pygame
 # and rendering of the game character.
 
 def character_jump(game_state: FlappyNoleGameState):
-    game_state.character_downward_speed = -14
+    game_state.character_downward_speed = -16
 
 def character_vmove(game_state: FlappyNoleGameState):
     GRAVITY = 1.2
