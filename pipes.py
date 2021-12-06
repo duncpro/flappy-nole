@@ -35,12 +35,7 @@ class Pipe():
     # of this pipe during the given tick.
     def left_bound_relative(self, tick: int):
         return self.left_bound_abs_pos - (tick / SIDESCROLL_SPEED)
-
-    # Calculates the leftmost pixel (relative) of this pipe which is still visible in the window.
-    def visible_left_bound(self, tick: int):
-        leftbound = self.left_bound_relative(tick)
-        return leftbound
-
+        
     # Calculates the width of this column which is still visible in the viewport.
     def visible_width(self, tick: int):
         if self.left_bound_relative(tick) < 0:
@@ -60,16 +55,16 @@ class Pipe():
         character_pos = character_relative_position(game_state)
         # This is the distance in pixels away the pipe is from the player. A positive value indicates
         # the player has yet to pass through the pipe and a negative value indicates the pipe is behind the player.
-        x_offset: int = round(self.visible_left_bound(game_state.game_tick) - character_pos[0])
+        x_offset: int = round(self.left_bound_relative(game_state.game_tick) - character_pos[0])
         y_offset: int = round(character_pos[1] * -1)
         return CHARACTER_HITBOX.overlap(self.hitbox(game_state.screen_height), (x_offset, y_offset)) != None
 
     # need to take into account the height of the image
     def tophalf(self, tick: int):
-        return pygame.Rect((self.visible_left_bound(tick), 0), (self.visible_width(tick), self.gap_start_pos))
+        return pygame.Rect((self.left_bound_relative(tick), 0), (self.visible_width(tick), self.gap_start_pos))
 
     def bottomhalf(self, tick: int, screen_height: int):
-        return pygame.Rect((self.visible_left_bound(tick), self.gap_start_pos + PIPE_GAP_HEIGHT), (self.visible_width(tick), screen_height))
+        return pygame.Rect((self.left_bound_relative(tick), self.gap_start_pos + PIPE_GAP_HEIGHT), (self.visible_width(tick), screen_height))
 
 # Draws all pipes present in the given game state on to the given screen.
 def draw_pipes(screen, game_state: FlappyNoleGameState):

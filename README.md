@@ -1,5 +1,7 @@
 # Flappy Nole
 
+### [GitHub Repository](https://github.com/duncpro/flappy-nole)
+
 ## Description
 Flappy Nole is an FSU themed arcade game that is built in Python3 using PyGame.
 Our inspiration came from the game Flappy Bird.
@@ -19,8 +21,16 @@ Taylor designed the graphics used for pipes and the game background.
 ### Main Menu and User Accounts
 Taylor developed the main menu, the sign-up screen, and the user account management system.
 
-## Garett
-Worked on graphics, movement, testing code, high score saving, editing logo to work with hitbox
+## Garrett
+### Graphics
+Worked on the original back ground graphics and edited main logo to work with hitboxes
+
+### Movement
+Worked to make game play smooth and close to the original game
+
+### Scoring
+Worked on saving highscore, storage and display to only save high score
+
 
 ## Duncan 
 ### Horizontal World Movement and Pipes
@@ -28,19 +38,26 @@ Duncan designed and developed the horizontal world space mechanism. Pipes are pl
 and modular arithmetic. 
 
 ### Circular Hitbox and Pipe Hitboxes
-Utilized pygame to create a mesh of the Seminole Head which is used for collision detection between rectangular Pipe hitboxes. This system was later exapnded by Taylor.
+Utilized pygame to create a mesh of the Seminole Head which is used for collision detection between rectangular Pipe hitboxes. 
 
 ### Scoring
 Duncan developed the score calculation algorithm. The score is a function of the number of pipes currently spawened in the world, the player's position, and the total number of pipes which have ever existed (spawned or not) within the world.
 
+### Application Architecture
+Duncan designed the main project structure. The app is built in a reactive style, where changes to the state are seperated from the actual rendering of the game. The main game loop is split into three phases.
+1. Handle User Input
+2. Handle Side Effects (progress the game forward through time)
+3. Draw the Game State to the Screen
 
-## Instructions for use
-Create a login using a unique username. When playing, use space bar to "jump".
+# Instructions for use
+1. Make sure pygame and pygame_gui are installed.
 
-## Credits
-- Duncan Proctor
-- Taylor Mathes
-- Garret Mathes
+2. Then run `python3 main.py` in the project directory.
+
+3. Create a login using a unique username. When playing, use space bar to "jump".
+
+# Video Explanation
+https://youtu.be/J7QlzxYD1_o
 
 ## Resources
 #### Images

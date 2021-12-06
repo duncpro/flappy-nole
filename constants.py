@@ -3,5 +3,6 @@
 
 # The speed at which the visibility window moves forward horizontally.
 # Measured in ticks per pixel
-SIDESCROLL_SPEED: int = 0.1
-DEBUG_MODE_ENABLED = False
+SIDESCROLL_SPEED: int = 0.12
+
+DEBUG_MODE_ENABLED = True
