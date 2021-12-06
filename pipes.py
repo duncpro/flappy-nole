@@ -35,7 +35,14 @@ class Pipe():
     # of this pipe during the given tick.
     def left_bound_relative(self, tick: int):
         return self.left_bound_abs_pos - (tick / SIDESCROLL_SPEED)
-        
+
+
+    # Calculates the leftmost pixel (relative) of this pipe which is still visible in the window.
+    def visible_left_bound(self, tick: int):
+        leftbound = self.left_bound_relative(tick)
+        return leftbound
+
+
     # Calculates the width of this column which is still visible in the viewport.
     def visible_width(self, tick: int):
         if self.left_bound_relative(tick) < 0:

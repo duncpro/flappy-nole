@@ -75,6 +75,24 @@ PyGame Tutorials - https://realpython.com/pygame-a-primer/
 
 PyGame_GUI Docs - https://pygame-gui.readthedocs.io/en/latest/
 
+## Resources
+#### Images
+Inspiration for background image and pipes - https://csw.fsu.edu/100years
+
+Player icon - [https://upload.wikimedia.org/wikipedia/en/...](https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Florida_State_Seminoles_logo.svg/350px-Florida_State_Seminoles_logo.svg.png)
+
+#### Game Inspiration
+Flappy Bird - https://flappybird.io/
+#### Materials
+
+Python Docs - https://docs.python.org/3/
+
+PyGame Docs - https://realpython.com/pygame-a-primer/
+
+PyGame Tutorials - https://realpython.com/pygame-a-primer/
+
+PyGame_GUI Docs - https://pygame-gui.readthedocs.io/en/latest/
+
 
 ## Screen Capture
 

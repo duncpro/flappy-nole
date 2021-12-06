@@ -1,8 +1,6 @@
 import sqlite3
-
 import pygame
 import pygame_gui
-from pygame import threads
 
 SCREEN_WIDTH = 576
 SCREEN_HEIGHT = 780
@@ -13,18 +11,15 @@ MENU_SIZE = (SCREEN_WIDTH/1.5,SCREEN_HEIGHT/2)
 # offset to place menu in the middle of the menu
 MENU_OFFSET = (SCREEN_WIDTH/2-MENU_SIZE[0]/2,SCREEN_HEIGHT/2-MENU_SIZE[1]/2)
 
-
 # textbox information
 TEXTBOX_SIZE = ((MENU_SIZE[0]/5*3)-6-8,12)
 TEXTBOX_LABEL_SIZE = (MENU_SIZE[0]/5,33)
 TEXTBOX_LABEL_OFFSET = (MENU_SIZE[0]/6)/2
-# CENTER_BOX = ((MENU_SIZE[0]/2)-(TEXTBOX_SIZE[0]/2), 0) #MENU_SIZE[1]/2-TEXTBOX_SIZE[1]/2)
 
 # button information
 BUTTON_SIZE = (150,50)
 BUTTON_PADDING = (MENU_SIZE[0]-(2*BUTTON_SIZE[0]))/3 -7 -  3  # horizontal padding
 BUTTON_OFFSET = -(BUTTON_SIZE[0]/2 + 7 + 3)
-
 
 # variable to store the offset caused by styling in menu.json
 CONTAINER_OFFSET = 14
@@ -41,8 +36,6 @@ class UI_Manager():
             text="USERNAME",manager=self.manager, container=self.menu_container, object_id="label")
         self.user_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET, 1.5*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]+TITLE_SPACE_Y),
             TEXTBOX_LABEL_SIZE),text="PASSWORD", manager=self.manager, container=self.menu_container, object_id="label")
-        # self.toggle_label = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((2*TEXTBOX_LABEL_OFFSET, TITLE_SPACE_Y+3*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]),
-        #      (TEXTBOX_LABEL_SIZE[0]*1.2, TEXTBOX_LABEL_SIZE[1]/1.7)),text="Remember Me", manager=self.manager, container=self.menu_container, object_id="text_only")
 
         # text boxes used to login and create new user
         self.username_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[0], TITLE_SPACE_Y+TEXTBOX_LABEL_OFFSET), TEXTBOX_SIZE),
@@ -50,17 +43,13 @@ class UI_Manager():
         self.password_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[0],
               1.5*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]+TITLE_SPACE_Y), TEXTBOX_SIZE), container=self.menu_container,manager=self.manager)
 
-        # Buttons used on the log in screen
-        # self.toggle_button = pygame_gui.elements.UIButton(
-        #     relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET, TITLE_SPACE_Y+3*TEXTBOX_LABEL_OFFSET+TEXTBOX_LABEL_SIZE[1]), (15, 15)), text="", container=self.menu_container, manager=self.manager,
-        #     object_id="toggle")
-
+        # buttons for main menu to submit user loggin info or create a new user
         self.login_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((BUTTON_PADDING,MENU_SIZE[1]-BUTTON_PADDING+BUTTON_OFFSET), BUTTON_SIZE),
               text='LOGIN',container=self.menu_container,manager=self.manager)
         self.create_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((BUTTON_PADDING*2+BUTTON_SIZE[0], MENU_SIZE[1]-BUTTON_PADDING+BUTTON_OFFSET),
               BUTTON_SIZE),text='CREATE ACCOUNT',container=self.menu_container,manager=self.manager)
 
-        # Buttons used on the create user screen
+        # Buttons used on the create user screen - submit to try and add to database, cancel to go back to main menu
         self.submit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((BUTTON_PADDING, MENU_SIZE[1] - BUTTON_PADDING +
               BUTTON_OFFSET), BUTTON_SIZE),text='SUBMIT',container=self.menu_container,manager=self.manager)
         self.cancel_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((BUTTON_PADDING * 2 + BUTTON_SIZE[0], MENU_SIZE[1] -
@@ -70,8 +59,7 @@ class UI_Manager():
         self.submit_button.hide()
         self.cancel_button.hide()
 
-
-        # login error messages
+        # login error messages - indicates when user provides bad username or password
         self.user_label = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET,MENU_SIZE[1]/2),(MENU_SIZE[0],80)),wrap_to_height=True,
             html_text="<font color='#FF0000'>INVALID LOGIN INFORMATION PROVIDED</font>",manager=self.manager, container=self.menu_container, object_id="text_box")
         self.error_label = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((TEXTBOX_LABEL_OFFSET, MENU_SIZE[1] / 2), (MENU_SIZE[0], 80)),
@@ -80,11 +68,8 @@ class UI_Manager():
 
         self.user_label.hide()
         self.error_label.hide()
-        # buttons for game over
-        # self.manager = pygame_gui.UIManager((width, height), 'assets/menu.json')
-        # self.menu_container = pygame_gui.elements.UIPanel(pygame.Rect((MENU_OFFSET), MENU_SIZE), manager=self.manager,
-        #                                                   starting_layer_height=1)
 
+    # check to see if the username provided exists in the database
     def username_exists(self, username):
         conn = sqlite3.connect('data.db')
         cur = conn.cursor()
@@ -95,12 +80,13 @@ class UI_Manager():
         finally:
             match = cur.fetchone() != None
             conn.close()
-
         if match:
             return True
         else:
             return False
 
+    # if username and password pair match in the database, then this returns
+    # true to begin the game play
     def try_login(self,username, password):
         conn = sqlite3.connect('data.db')
         cur = conn.cursor()
@@ -116,6 +102,7 @@ class UI_Manager():
         self.on_login(username)
         return True
 
+    # checks for valid entries and then adds user to database
     def create_user(self, username, password):
         if self.username_exists(username):
             print("that username exists. Please choose a different one")
@@ -137,6 +124,7 @@ class UI_Manager():
                 conn.close()
                 return True
 
+    # toggles error messages on or off
     def message(self, num):
         if num == 1:
             self.user_label.show()
@@ -146,10 +134,13 @@ class UI_Manager():
             self.user_label.hide()
             self.error_label.hide()
 
+    # clears text from text boxes when menu "window" changes
     def clear_text(self):
         self.username_input.set_text("")
         self.password_input.set_text("")
 
+
+    # functions to hide or show buttons depending on the "window"
     def create_user_buttons(self):
         self.login_button.hide()
         self.create_button.hide()
@@ -170,6 +161,7 @@ class UI_Manager():
         self.menu_container.hide()
 
 
+# creates a table to store usernames and passwords of individual users
 def create_users_table():
     connection = sqlite3.connect('data.db')
     connection.execute('CREATE TABLE IF NOT EXISTS Users (Username TEXT, Password TEXT)')
