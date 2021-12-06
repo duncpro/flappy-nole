@@ -13,7 +13,6 @@ def handle_pygame_event(event, menu, game_state: FlappyNoleGameState):
     if event.type == KEYDOWN:
         handle_keyboard_event(event, game_state)
     if event.type == USEREVENT:
-        # for handling events of menu buttons
         if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             menu.message(3)
             if event.ui_element == menu.login_button:
