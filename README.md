@@ -1,10 +1,9 @@
-# Flappy Nole
-
-### [GitHub Repository](https://github.com/duncpro/flappy-nole)
-
-## Description
+# Flappy Nole (FSU Into to Python Project)
 Flappy Nole is an FSU themed arcade game that is built in Python3 using PyGame.
 Our inspiration came from the game Flappy Bird.
+
+## Screen Capture
+ ![FlappyNole Demo](./readme-assets/demo-video.gif)
 
 ## Libraries
 pygame
@@ -78,6 +77,4 @@ PyGame Tutorials - https://realpython.com/pygame-a-primer/
 PyGame_GUI Docs - https://pygame-gui.readthedocs.io/en/latest/
 
 
-## Screen Capture
 
- ![FlappyNole Demo](./readme-assets/demo-video.gif)
